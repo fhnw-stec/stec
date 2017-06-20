@@ -1,0 +1,13 @@
+# STEC
+
+## Running The Project
+
+`npm run start`
+
+## Details
+
+This project was bootstrapped with [TypeScript-React-Starter](https://github.com/Microsoft/TypeScript-React-Starter).
+
+## License
+
+All source code is available under the link:LICENSE[MIT License].
