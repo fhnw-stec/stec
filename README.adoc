@@ -6,7 +6,7 @@
 
 ## Details
 
-This project was bootstrapped with [TypeScript-React-Starter](https://github.com/Microsoft/TypeScript-React-Starter).
+This project was bootstrapped with https://github.com/Microsoft/TypeScript-React-Starter[TypeScript-React-Starter].
 
 ## License
 
