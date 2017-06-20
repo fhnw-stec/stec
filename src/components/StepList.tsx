@@ -1,15 +1,19 @@
 import * as React from 'react';
-import { Step } from '../models';
+import { Step } from '../types';
 
 export interface Props {
   steps: Array<Step>;
+  loadTags: () => void;
 }
 
-function StepList({ steps }: Props) {
+function StepList({ steps, loadTags }: Props) {
   return (
-    <ul>
-      {steps.map(step => <li key={step.tag}>{step.description}</li>)}
-    </ul>
+    <div>
+      <button onClick={loadTags}>Refresh</button>
+      <ul>
+        {steps.map(step => <li key={step.tag}>{step.description}</li>)}
+      </ul>
+    </div>
   );
 }
 
