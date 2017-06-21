@@ -11,10 +11,12 @@ import { Provider } from 'react-redux';
 
 const initialState = { steps: [] };
 
+const loggerMiddleware = require('redux-logger').createLogger();
+
 const store = createStore<StoreState>(
     rootReducer,
     initialState,
-    applyMiddleware(thunkMiddleware)
+    applyMiddleware(thunkMiddleware, loggerMiddleware)
 );
 
 ReactDOM.render(
