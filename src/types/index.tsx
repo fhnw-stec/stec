@@ -1,4 +1,4 @@
-export type Repo = string;
+export type Ref = string;
 
 export interface Tag {
     readonly name: string;
@@ -17,4 +17,5 @@ export interface StoreState {
 
 export interface StecService {
     fetchTags(): Promise<Tag[]>;
+    fetchReadmeAsHtml(ref: Ref): Promise<string>;
 }

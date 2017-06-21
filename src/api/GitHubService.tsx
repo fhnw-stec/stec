@@ -1,4 +1,4 @@
-import {StecService, Tag} from '../types/index';
+import {Ref, StecService, Tag} from '../types/index';
 
 export class GitHubService implements StecService {
 
@@ -23,6 +23,24 @@ export class GitHubService implements StecService {
                 },
                 error => Promise.reject(error)
             );
+    }
+
+    fetchReadmeAsHtml(ref: Ref): Promise<string> {
+        const url = `${this.baseUrl}/readme?ref=${ref}`;
+
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/vnd.github.v3.html');
+
+        return fetch(url, {headers}).then(
+            response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    return Promise.reject(response.statusText + ` (${url})`);
+                }
+            },
+            error => Promise.reject(error)
+        );
     }
 
 }
