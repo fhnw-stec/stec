@@ -3,14 +3,14 @@ import * as actions from '../actions/';
 import { StoreState } from '../types/index';
 import { connect, Dispatch } from 'react-redux';
 
-export function mapStateToProps(state: StoreState) {
+const mapStateToProps = (state: StoreState) => {
     return state;
-}
+};
 
-export function mapDispatchToProps(dispatch: Dispatch<actions.LoadTagsAction>) {
+const mapDispatchToProps = (dispatch: Dispatch<actions.StecAction>) => {
     return {
-        loadTags: () => dispatch(actions.loadTags())
+        loadSteps: () => dispatch(actions.loadSteps('https://api.github.com/repos/fhnw-stec/stec-mock'))
     };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(StepList);

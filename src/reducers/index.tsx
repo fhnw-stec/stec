@@ -1,17 +1,44 @@
-import { LoadTagsAction } from '../actions/index';
-import { StoreState } from '../types/index';
-import { LOAD_TAGS } from '../constants/index';
+import {Step, StoreState, Tag} from '../types/index';
+import {
+    RECEIVE_TAGS_ERROR,
+    RECEIVE_TAGS_SUCCESS, ReceiveTagsErrorAction,
+    ReceiveTagsSuccessAction,
+    REQUEST_TAGS,
+    StecAction
+} from '../actions/index';
 
-export function loadTags(state: StoreState, action: LoadTagsAction): StoreState {
-  switch (action.type) {
-    case LOAD_TAGS:
-      const now = new Date().toLocaleTimeString();
-      return {
-        ...state, steps: [
-          { tag: 'one', description: `Step 1 (${now})` },
-          { tag: 'two', description: `Step 2 (${now})` }
-        ]
-      };
-    default: return state;
-  }
+// TODO: Break into individual reducers
+export function rootReducer(state: StoreState, action: StecAction): StoreState {
+
+    switch (action.type) {
+        case REQUEST_TAGS:
+            return {
+                ...state,
+                steps: []
+            };
+        case RECEIVE_TAGS_SUCCESS:
+
+            const tags = (action as ReceiveTagsSuccessAction).tags;
+            const steps = tags.map(createStep);
+
+            return {
+                ...state,
+                steps
+            };
+        case RECEIVE_TAGS_ERROR:
+            // TODO: Add errors to state and render in UI
+            console.log((action as ReceiveTagsErrorAction).error);
+            return state;
+
+        default:
+            return state;
+    }
+
+    function createStep(tag: Tag): Step {
+        return {
+            tag,
+            description: tag
+        };
+    }
+
 }
