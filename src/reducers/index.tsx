@@ -3,7 +3,7 @@ import {
     RECEIVE_TAGS_ERROR,
     RECEIVE_TAGS_SUCCESS, ReceiveTagsErrorAction,
     ReceiveTagsSuccessAction,
-    REQUEST_TAGS,
+    FETCH_TAGS_IN_PROGRESS,
     StecAction
 } from '../actions/index';
 
@@ -11,7 +11,7 @@ import {
 export function rootReducer(state: StoreState, action: StecAction): StoreState {
 
     switch (action.type) {
-        case REQUEST_TAGS:
+        case FETCH_TAGS_IN_PROGRESS:
             return {
                 ...state,
                 steps: []

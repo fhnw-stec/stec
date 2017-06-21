@@ -14,3 +14,7 @@ export interface Step {
 export interface StoreState {
     steps: Step[];
 }
+
+export interface StecService {
+    fetchTags(): Promise<Tag[]>;
+}

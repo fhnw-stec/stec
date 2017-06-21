@@ -1,20 +1,20 @@
-import {Repo, Tag} from '../types/index';
+import {StecService, Tag} from '../types/index';
 import {Dispatch} from 'react-redux';
 
 export interface StecAction {
     type: string;
 }
 
-export const REQUEST_TAGS = 'REQUEST_TAGS';
-export type REQUEST_TAGS = typeof REQUEST_TAGS;
+export const FETCH_TAGS_IN_PROGRESS = 'FETCH_TAGS_IN_PROGRESS';
+export type FETCH_TAGS_IN_PROGRESS = typeof FETCH_TAGS_IN_PROGRESS;
 
-export interface RequestTagsAction extends StecAction {
-    type: REQUEST_TAGS;
+export interface FetchTagsInProgressAction extends StecAction {
+    type: FETCH_TAGS_IN_PROGRESS;
 }
 
-export function requestTags(): RequestTagsAction {
+export function fetchTagsInProgress(): FetchTagsInProgressAction {
     return {
-        type: REQUEST_TAGS
+        type: FETCH_TAGS_IN_PROGRESS
     };
 }
 
@@ -48,22 +48,12 @@ export function receiveTagsError(error: string): ReceiveTagsErrorAction {
     };
 }
 
-export function loadSteps(repo: Repo) {
-    // TODO: Move API call to service
+export function loadSteps(service: StecService) {
     return (dispatch: Dispatch<StecAction>) => {
-        dispatch(requestTags());
-        const url = `${repo}/tags`;
-        return fetch(url)
+        dispatch(fetchTagsInProgress());
+        return service.fetchTags()
             .then(
-                response => {
-                    if (response.ok) {
-                        response.json().then((tags: Tag[]) => {
-                            dispatch(receiveTagsSuccess(tags));
-                        });
-                    } else {
-                        dispatch(receiveTagsError(response.statusText + ` (${url})`));
-                    }
-                },
+                tags => dispatch(receiveTagsSuccess(tags)),
                 error => dispatch(receiveTagsError(error))
             );
     };
