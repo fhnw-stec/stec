@@ -19,7 +19,9 @@ const store = createStore<StoreState>(
 
 ReactDOM.render(
     <Provider store={store}>
-        <StepList />
+        <div className="container">
+            <StepList />
+        </div>
     </Provider>,
     document.getElementById('root') as HTMLElement
 );
