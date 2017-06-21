@@ -52,17 +52,12 @@ export function loadSteps(repo: Repo) {
     // TODO: Move API call to service
     return (dispatch: Dispatch<StecAction>) => {
         dispatch(requestTags());
-        const url = `${repo}/git/refs/tags`;
+        const url = `${repo}/tags`;
         return fetch(url)
             .then(
                 response => {
                     if (response.ok) {
-                        response.json().then((json: Object[]) => {
-                            // TODO: Proper JSON deserialization
-                            const tags = json.map((o: Object) => {
-                                const ref = o['ref'];
-                                return ref.substr(ref.lastIndexOf('/') + 1);
-                            });
+                        response.json().then((tags: Tag[]) => {
                             dispatch(receiveTagsSuccess(tags));
                         });
                     } else {

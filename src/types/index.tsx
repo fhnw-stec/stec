@@ -1,6 +1,8 @@
 export type Repo = string;
 
-export type Tag = string;
+export interface Tag {
+    readonly name: string;
+}
 
 export interface Step {
     readonly tag: Tag;

@@ -11,7 +11,7 @@ function StepList({ steps, loadSteps }: Props) {
     <div>
       <button onClick={loadSteps}>Refresh</button>
       <ul>
-        {steps.map(step => <li key={step.tag}>{step.description}</li>)}
+        {steps.map(step => <li key={step.tag.name}>{step.description}</li>)}
       </ul>
     </div>
   );

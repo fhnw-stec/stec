@@ -37,7 +37,7 @@ export function rootReducer(state: StoreState, action: StecAction): StoreState {
     function createStep(tag: Tag): Step {
         return {
             tag,
-            description: tag
+            description: tag.name // TODO: Parse header from README
         };
     }
 
