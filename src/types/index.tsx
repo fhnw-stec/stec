@@ -1,7 +1,30 @@
-export type Ref = string;
+export interface StecRootState {
+    readonly gitHubUser: GitHubUser;
+    readonly gitHubRepo: GitHubRepo;
+    readonly repoState: RepoState;
+}
 
-export interface Tag {
-    readonly name: string;
+export type GitHubUser = string;
+export type GitHubRepo = string;
+
+export type RepoState = Empty | LoadingInProgress | Error | RepoModel;
+
+export class RepoModel {
+    readonly steps: Step[];
+    constructor(steps: Step[]) {
+        this.steps = steps;
+    }
+}
+
+export class Empty {
+}
+
+export class LoadingInProgress {
+    readonly description: string;
+}
+
+export class Error {
+    readonly error: string;
 }
 
 export interface Step {
@@ -9,13 +32,13 @@ export interface Step {
     readonly description: string;
 }
 
-// TODO: Use sum type to handle loading and errors distinctively
-
-export interface StoreState {
-    readonly steps: Step[];
-}
-
 export interface StecService {
     fetchTags(): Promise<Tag[]>;
     fetchReadmeAsHtml(ref: Ref): Promise<string>;
+}
+
+export type Ref = string;
+
+export interface Tag {
+    readonly name: string;
 }

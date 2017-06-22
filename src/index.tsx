@@ -1,19 +1,23 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import StepList from './containers/StepList';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
-import { applyMiddleware, createStore } from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { StoreState } from './types/index';
-import { rootReducer } from './reducers/index';
-import { Provider } from 'react-redux';
+import {Empty, StecRootState} from './types/index';
+import {rootReducer} from './reducers/index';
+import {Provider} from 'react-redux';
+import App from './containers/App';
 
-const initialState = { steps: [] };
+const initialState: StecRootState = {
+    gitHubUser: 'fhnw-stec',
+    gitHubRepo: 'stec-mock',
+    repoState: new Empty()
+};
 
 const loggerMiddleware = require('redux-logger').createLogger();
 
-const store = createStore<StoreState>(
+const store = createStore<StecRootState>(
     rootReducer,
     initialState,
     applyMiddleware(thunkMiddleware, loggerMiddleware)
@@ -21,9 +25,7 @@ const store = createStore<StoreState>(
 
 ReactDOM.render(
     <Provider store={store}>
-        <div className="container">
-            <StepList />
-        </div>
+        <App/>
     </Provider>,
     document.getElementById('root') as HTMLElement
 );

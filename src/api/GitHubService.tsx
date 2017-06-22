@@ -1,10 +1,10 @@
-import {Ref, StecService, Tag} from '../types/index';
+import {GitHubRepo, GitHubUser, Ref, StecService, Tag} from '../types/index';
 
 export class GitHubService implements StecService {
 
     private readonly baseUrl: string;
 
-    constructor(gitHubUser: string, gitHubRepo: string) {
+    constructor(gitHubUser: GitHubUser, gitHubRepo: GitHubRepo) {
         this.baseUrl = `https://api.github.com/repos/${gitHubUser}/${gitHubRepo}`;
     }
 

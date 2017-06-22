@@ -1,20 +1,21 @@
-import {Step, StoreState, Tag} from '../types/index';
+import {LoadingInProgress, RepoModel, StecRootState, Step, Tag} from '../types/index';
 import {
-    RECEIVE_TAGS_ERROR,
-    RECEIVE_TAGS_SUCCESS, ReceiveTagsErrorAction,
-    ReceiveTagsSuccessAction,
     FETCH_TAGS_IN_PROGRESS,
+    RECEIVE_TAGS_ERROR,
+    RECEIVE_TAGS_SUCCESS,
+    ReceiveTagsErrorAction,
+    ReceiveTagsSuccessAction,
     StecAction
 } from '../actions/index';
 
 // TODO: Break into individual reducers
-export function rootReducer(state: StoreState, action: StecAction): StoreState {
+export function rootReducer(state: StecRootState, action: StecAction): StecRootState {
 
     switch (action.type) {
         case FETCH_TAGS_IN_PROGRESS:
             return {
                 ...state,
-                steps: []
+                repoState: new LoadingInProgress()
             };
         case RECEIVE_TAGS_SUCCESS:
 
@@ -23,12 +24,13 @@ export function rootReducer(state: StoreState, action: StecAction): StoreState {
 
             return {
                 ...state,
-                steps
+                repoState: new RepoModel(steps)
             };
         case RECEIVE_TAGS_ERROR:
-            // TODO: Add errors to state and render in UI
-            console.log((action as ReceiveTagsErrorAction).error);
-            return state;
+            return {
+                ...state,
+                repoState: new Error((action as ReceiveTagsErrorAction).error)
+            };
 
         default:
             return state;
