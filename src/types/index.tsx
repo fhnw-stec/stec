@@ -12,7 +12,7 @@ export interface Step {
 // TODO: Use sum type to handle loading and errors distinctively
 
 export interface StoreState {
-    steps: Step[];
+    readonly steps: Step[];
 }
 
 export interface StecService {
