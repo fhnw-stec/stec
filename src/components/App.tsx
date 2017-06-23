@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {LoadingInProgress, RepoModel, RepoState, StecRootState, Step} from '../types';
-import {Alert, Button, Col, Grid, ListGroup, ListGroupItem, Row} from 'react-bootstrap';
+import {Alert, Col, Grid, Panel, Row} from 'react-bootstrap';
 import StepList from './StepList';
 import Readme from './Readme';
+import GitHubConfig from './GitHubConfig';
 
 export interface Props {
     readonly state: StecRootState;
@@ -15,10 +16,15 @@ const App = ({state, loadSteps, selectStep}: Props) => {
         <div className="container">
             <Grid>
                 <Row>
-                    <Col>
-                        <div>{state.gitHubUser}/{state.gitHubRepo}</div>
+                    <Col xs={12}>
+                        <Panel>
+                            <GitHubConfig
+                                gitHubUser={state.gitHubUser}
+                                gitHubRepo={state.gitHubRepo}
+                                refresh={loadSteps}
+                            />
+                        </Panel>
                     </Col>
-                    <Col><Button onClick={loadSteps}>Refresh</Button></Col>
                 </Row>
                 <Row>
                     {renderRepoState(state.repoState, selectStep)}
@@ -32,26 +38,24 @@ const renderRepoState = (repoModelState: RepoState, selectStep: (step: Step) => 
     if (repoModelState instanceof RepoModel) {
         return (
             <div>
-                <Col xs={6}>
+                <Col xs={3}>
                     <StepList
                         steps={repoModelState.steps}
                         selectedStep={repoModelState.selectedStep}
                         selectStep={selectStep}
                     />
                 </Col>
-                <Col xs={6}>
-                    <ListGroup>
-                        <ListGroupItem>
-                            <Readme readme={repoModelState.selectedStep.readme}/>
-                        </ListGroupItem>
-                    </ListGroup>
+                <Col xs={9}>
+                    <Panel>
+                        <Readme readme={repoModelState.selectedStep.readme}/>
+                    </Panel>
                 </Col>
             </div>
         );
     } else if (repoModelState instanceof LoadingInProgress) {
-        return <div>Loading...</div>;
+        return <Col xs={12}><Alert bsStyle="info">Loading...</Alert></Col>;
     } else if (repoModelState instanceof Error) {
-        return <Alert bsStyle="danger">{repoModelState.message}</Alert>;
+        return <Col xs={12}><Alert bsStyle="danger">{repoModelState.message}</Alert></Col>;
     } else {
         return <div/>;
     }
