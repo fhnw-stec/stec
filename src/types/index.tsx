@@ -10,10 +10,7 @@ export type GitHubRepo = string;
 export type RepoState = Empty | LoadingInProgress | Error | RepoModel;
 
 export class RepoModel {
-    readonly steps: Step[];
-    readonly selectedStep: Step;
-
-    constructor(steps: Step[], selectedStep: Step) {
+    constructor(readonly steps: Step[], readonly selectedStep: Step) {
         this.steps = steps;
         this.selectedStep = selectedStep;
     }

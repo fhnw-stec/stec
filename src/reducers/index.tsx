@@ -10,7 +10,7 @@ import {
     UpdateSteps
 } from '../actions/index';
 
-export function rootReducer(state: StecRootState, action: StecAction): StecRootState {
+export const rootReducer = (state: StecRootState, action: StecAction): StecRootState => {
 
     switch (action.type) {
 
@@ -42,11 +42,11 @@ export function rootReducer(state: StecRootState, action: StecAction): StecRootS
         case ERROR:
             return {
                 ...state,
-                repoState: new Error((action as ErrorAction).error)
+                repoState: new Error((action as ErrorAction).message)
             };
 
         default:
             return state;
     }
 
-}
+};

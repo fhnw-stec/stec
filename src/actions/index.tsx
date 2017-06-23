@@ -52,17 +52,17 @@ export type ERROR = typeof ERROR;
 
 export interface ErrorAction extends StecAction {
     readonly type: ERROR;
-    readonly error: string;
+    readonly message: string;
 }
 
-export function error(error: string): ErrorAction {
+export const error = (message: string): ErrorAction => {
     return {
         type: ERROR,
-        error
+        message
     };
-}
+};
 
-export function loadSteps(service: StecService) {
+export const loadSteps = (service: StecService) => {
     return async (dispatch: Dispatch<StecAction>) => {
         try {
             dispatch(loadingProgress());
@@ -80,4 +80,4 @@ export function loadSteps(service: StecService) {
             dispatch(error(e));
         }
     };
-}
+};
