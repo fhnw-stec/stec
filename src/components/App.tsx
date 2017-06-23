@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {LoadingInProgress, RepoModel, RepoState, StecRootState} from '../types';
-import {Button, Col, Grid, Row} from 'react-bootstrap';
+import {Alert, Button, Col, Grid, ListGroup, ListGroupItem, Row} from 'react-bootstrap';
 import StepList from './StepList';
+import Readme from './Readme';
 
 export interface Props {
     readonly state: StecRootState;
@@ -19,20 +20,31 @@ const App = ({state, loadSteps}: Props) => {
                     <Col><Button onClick={loadSteps}>Refresh</Button></Col>
                 </Row>
                 <Row>
-                    {render(state.repoState)}
+                    {renderRepoState(state.repoState)}
                 </Row>
             </Grid>
         </div>
     );
 };
 
-const render = (repoModelState: RepoState) => {
+const renderRepoState = (repoModelState: RepoState) => {
     if (repoModelState instanceof RepoModel) {
-        return <StepList steps={repoModelState.steps}/>;
+        return (
+            <div>
+                <Col xs={6}><StepList steps={repoModelState.steps}/></Col>
+                <Col xs={6}>
+                    <ListGroup>
+                        <ListGroupItem>
+                            <Readme readme={repoModelState.steps[0].readme}/>
+                        </ListGroupItem>
+                    </ListGroup>
+                </Col>
+            </div>
+        );
     } else if (repoModelState instanceof LoadingInProgress) {
         return <div>Loading...</div>;
     } else if (repoModelState instanceof Error) {
-        return <div>{repoModelState.message}</div>;
+        return <Alert bsStyle="danger">{repoModelState.message}</Alert>;
     } else {
         return <div/>;
     }

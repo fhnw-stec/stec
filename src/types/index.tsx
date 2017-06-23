@@ -29,7 +29,8 @@ export class Error {
 
 export interface Step {
     readonly tag: Tag;
-    readonly description: string;
+    readonly title: string;
+    readonly readme: string;
 }
 
 export interface StecService {
@@ -40,5 +41,5 @@ export interface StecService {
 export type Ref = string;
 
 export interface Tag {
-    readonly name: string;
+    readonly name: Ref;
 }

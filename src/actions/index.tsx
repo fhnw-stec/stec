@@ -1,60 +1,69 @@
-import {StecService, Tag} from '../types/index';
+import {StecService, Step} from '../types/index';
 import {Dispatch} from 'react-redux';
 
 export interface StecAction {
     readonly type: string;
 }
 
-export const FETCH_TAGS_IN_PROGRESS = 'FETCH_TAGS_IN_PROGRESS';
-export type FETCH_TAGS_IN_PROGRESS = typeof FETCH_TAGS_IN_PROGRESS;
+export const LOADING_IN_PROGRESS = 'LOADING_IN_PROGRESS';
+export type LOADING_IN_PROGRESS = typeof LOADING_IN_PROGRESS;
 
-export interface FetchTagsInProgressAction extends StecAction {
-    readonly type: FETCH_TAGS_IN_PROGRESS;
+export interface LoadingInProgressAction extends StecAction {
+    readonly type: LOADING_IN_PROGRESS;
 }
 
-export function fetchTagsInProgress(): FetchTagsInProgressAction {
+export function loadingProgress(): LoadingInProgressAction {
     return {
-        type: FETCH_TAGS_IN_PROGRESS
+        type: LOADING_IN_PROGRESS
     };
 }
 
-export const RECEIVE_TAGS_SUCCESS = 'RECEIVE_TAGS_SUCCESS';
-export type RECEIVE_TAGS_SUCCESS = typeof RECEIVE_TAGS_SUCCESS;
+export const UPDATE_STEPS = 'UPDATE_STEPS';
+export type UPDATE_STEPS = typeof UPDATE_STEPS;
 
-export interface ReceiveTagsSuccessAction extends StecAction {
-    readonly type: RECEIVE_TAGS_SUCCESS;
-    readonly tags: Tag[];
+export interface UpdateSteps extends StecAction {
+    readonly type: UPDATE_STEPS;
+    readonly steps: Step[];
 }
 
-export function receiveTagsSuccess(tags: Tag[]): ReceiveTagsSuccessAction {
+export function updateSteps(steps: Step[]): UpdateSteps {
     return {
-        type: RECEIVE_TAGS_SUCCESS,
-        tags
+        type: UPDATE_STEPS,
+        steps
     };
 }
 
-export const RECEIVE_TAGS_ERROR = 'RECEIVE_TAGS_ERROR';
-export type RECEIVE_TAGS_ERROR = typeof RECEIVE_TAGS_ERROR;
+export const ERROR = 'ERROR';
+export type ERROR = typeof ERROR;
 
-export interface ReceiveTagsErrorAction extends StecAction {
-    readonly type: RECEIVE_TAGS_ERROR;
+export interface ErrorAction extends StecAction {
+    readonly type: ERROR;
     readonly error: string;
 }
 
-export function receiveTagsError(error: string): ReceiveTagsErrorAction {
+export function error(error: string): ErrorAction {
     return {
-        type: RECEIVE_TAGS_ERROR,
+        type: ERROR,
         error
     };
 }
 
 export function loadSteps(service: StecService) {
-    return (dispatch: Dispatch<StecAction>) => {
-        dispatch(fetchTagsInProgress());
-        return service.fetchTags()
-            .then(
-                tags => dispatch(receiveTagsSuccess(tags)),
-                error => dispatch(receiveTagsError(error))
-            );
+    return async (dispatch: Dispatch<StecAction>) => {
+        try {
+            dispatch(loadingProgress());
+            const tags = await service.fetchTags();
+            const steps = await Promise.all(tags.map(async tag => {
+                const readme = await service.fetchReadmeAsHtml(tag.name);
+                return {
+                    tag,
+                    title: tag.name, // TODO: Extract title from README
+                    readme
+                };
+            }));
+            dispatch(updateSteps(steps));
+        } catch (e) {
+            dispatch(error(e));
+        }
     };
 }

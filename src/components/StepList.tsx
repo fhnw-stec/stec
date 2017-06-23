@@ -6,16 +6,16 @@ export interface Props {
     readonly steps: Step[];
 }
 
-function StepList({steps}: Props) {
+const StepList = ({steps}: Props) => {
     return (
         <ListGroup>
             {
                 steps.map(step =>
-                    <ListGroupItem key={step.tag.name}>{step.description}</ListGroupItem>
+                    <ListGroupItem key={step.tag.name}>{step.title}</ListGroupItem>
                 )
             }
         </ListGroup>
     );
-}
+};
 
 export default StepList;
