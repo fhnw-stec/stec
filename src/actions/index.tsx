@@ -12,11 +12,11 @@ export interface LoadingInProgressAction extends StecAction {
     readonly type: LOADING_IN_PROGRESS;
 }
 
-export function loadingProgress(): LoadingInProgressAction {
+export const loadingProgress = (): LoadingInProgressAction => {
     return {
         type: LOADING_IN_PROGRESS
     };
-}
+};
 
 export const UPDATE_STEPS = 'UPDATE_STEPS';
 export type UPDATE_STEPS = typeof UPDATE_STEPS;
@@ -26,12 +26,26 @@ export interface UpdateSteps extends StecAction {
     readonly steps: Step[];
 }
 
-export function updateSteps(steps: Step[]): UpdateSteps {
+export const updateSteps = (steps: Step[]): UpdateSteps => {
     return {
         type: UPDATE_STEPS,
         steps
     };
+};
+
+export const UPDATE_SELECTED_STEP = 'UPDATE_SELECTED_STEP';
+export type UPDATE_SELECTED_STEP = typeof UPDATE_SELECTED_STEP;
+
+export interface UpdateSelectedStep extends StecAction {
+    readonly selectedStep: Step;
 }
+
+export const updateSelectedStep = (step: Step): UpdateSelectedStep => {
+    return {
+        type: UPDATE_SELECTED_STEP,
+        selectedStep: step
+    };
+};
 
 export const ERROR = 'ERROR';
 export type ERROR = typeof ERROR;

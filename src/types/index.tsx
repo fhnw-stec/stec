@@ -11,8 +11,11 @@ export type RepoState = Empty | LoadingInProgress | Error | RepoModel;
 
 export class RepoModel {
     readonly steps: Step[];
-    constructor(steps: Step[]) {
+    readonly selectedStep: Step;
+
+    constructor(steps: Step[], selectedStep: Step) {
         this.steps = steps;
+        this.selectedStep = selectedStep;
     }
 }
 
@@ -20,7 +23,6 @@ export class Empty {
 }
 
 export class LoadingInProgress {
-    readonly description: string;
 }
 
 export class Error {
@@ -32,6 +34,12 @@ export interface Step {
     readonly title: string;
     readonly readme: string;
 }
+
+export const EMPTY_STEP: Step = {
+    tag: {name: ''},
+    title: '',
+    readme: ''
+};
 
 export interface StecService {
     fetchTags(): Promise<Tag[]>;

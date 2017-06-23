@@ -1,4 +1,4 @@
-import {StecRootState} from '../types/index';
+import {StecRootState, Step} from '../types/index';
 import {connect} from 'react-redux';
 import App from '../components/App';
 import {Dispatch} from 'redux';
@@ -26,7 +26,8 @@ const mergeProps = (stateProps: StateProps, dispatchProps: DispatchProps) => {
     const service = new GitHubService(stateProps.state.gitHubUser, stateProps.state.gitHubRepo);
     return {
         ...stateProps,
-        loadSteps: () => dispatchProps.dispatch(actions.loadSteps(service))
+        loadSteps: () => dispatchProps.dispatch(actions.loadSteps(service)),
+        selectStep: (step: Step) => dispatchProps.dispatch(actions.updateSelectedStep(step))
     };
 };
 

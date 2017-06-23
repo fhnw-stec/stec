@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {LoadingInProgress, RepoModel, RepoState, StecRootState} from '../types';
+import {LoadingInProgress, RepoModel, RepoState, StecRootState, Step} from '../types';
 import {Alert, Button, Col, Grid, ListGroup, ListGroupItem, Row} from 'react-bootstrap';
 import StepList from './StepList';
 import Readme from './Readme';
@@ -7,9 +7,10 @@ import Readme from './Readme';
 export interface Props {
     readonly state: StecRootState;
     readonly loadSteps: () => void;
+    readonly selectStep: (step: Step) => void;
 }
 
-const App = ({state, loadSteps}: Props) => {
+const App = ({state, loadSteps, selectStep}: Props) => {
     return (
         <div className="container">
             <Grid>
@@ -20,22 +21,28 @@ const App = ({state, loadSteps}: Props) => {
                     <Col><Button onClick={loadSteps}>Refresh</Button></Col>
                 </Row>
                 <Row>
-                    {renderRepoState(state.repoState)}
+                    {renderRepoState(state.repoState, selectStep)}
                 </Row>
             </Grid>
         </div>
     );
 };
 
-const renderRepoState = (repoModelState: RepoState) => {
+const renderRepoState = (repoModelState: RepoState, selectStep: (step: Step) => void) => {
     if (repoModelState instanceof RepoModel) {
         return (
             <div>
-                <Col xs={6}><StepList steps={repoModelState.steps}/></Col>
+                <Col xs={6}>
+                    <StepList
+                        steps={repoModelState.steps}
+                        selectedStep={repoModelState.selectedStep}
+                        selectStep={selectStep}
+                    />
+                </Col>
                 <Col xs={6}>
                     <ListGroup>
                         <ListGroupItem>
-                            <Readme readme={repoModelState.steps[0].readme}/>
+                            <Readme readme={repoModelState.selectedStep.readme}/>
                         </ListGroupItem>
                     </ListGroup>
                 </Col>
