@@ -9,6 +9,7 @@
     "@types/react-bootstrap": "0.0.50",
     "@types/react-dom": "^15.5.0",
     "@types/react-redux": "^4.4.44",
+    "bootstrap": "^3.3.7",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
