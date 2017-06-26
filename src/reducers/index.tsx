@@ -1,11 +1,13 @@
-import {EMPTY_STEP, LoadingInProgress, RepoModel, StecRootState} from '../types/index';
+import {Empty, EMPTY_STEP, LoadingInProgress, RepoModel, StecRootState} from '../types/index';
 import {
     ERROR,
     ErrorAction,
     LOADING_IN_PROGRESS,
     StecAction,
+    UPDATE_GITHUB_CONFIG,
     UPDATE_SELECTED_STEP,
     UPDATE_STEPS,
+    UpdateGitHubConfig,
     UpdateSelectedStep,
     UpdateSteps
 } from '../actions/index';
@@ -13,6 +15,16 @@ import {
 export const rootReducer = (state: StecRootState, action: StecAction): StecRootState => {
 
     switch (action.type) {
+
+        case UPDATE_GITHUB_CONFIG: {
+            const updateGitHubConfigAction = (action as UpdateGitHubConfig);
+            return {
+                ...state,
+                gitHubUser: updateGitHubConfigAction.gitHubUser,
+                gitHubRepo: updateGitHubConfigAction.gitHubRepo,
+                repoState: new Empty()
+            };
+        }
 
         case LOADING_IN_PROGRESS:
             return {

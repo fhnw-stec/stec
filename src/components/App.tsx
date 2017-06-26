@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {LoadingInProgress, RepoModel, RepoState, StecRootState, Step} from '../types';
+import {GitHubRepo, GitHubUser, LoadingInProgress, RepoModel, RepoState, StecRootState, Step} from '../types';
 import {Alert, Col, Grid, Panel, Row} from 'react-bootstrap';
 import StepList from './StepList';
 import Readme from './Readme';
@@ -10,9 +10,10 @@ export interface Props {
     readonly loadSteps: () => void;
     readonly selectStep: (step: Step) => void;
     readonly getDownloadZipUri: (step: Step) => string;
+    readonly updateGitHubConfig: (gitHubUser: GitHubUser, gitHubRepo: GitHubRepo) => void;
 }
 
-const App = ({state, loadSteps, selectStep, getDownloadZipUri}: Props) => {
+const App = ({state, loadSteps, selectStep, getDownloadZipUri, updateGitHubConfig}: Props) => {
     return (
         <div className="container">
             <Grid>
@@ -23,6 +24,7 @@ const App = ({state, loadSteps, selectStep, getDownloadZipUri}: Props) => {
                                 gitHubUser={state.gitHubUser}
                                 gitHubRepo={state.gitHubRepo}
                                 refresh={loadSteps}
+                                updateGitHubConfig={updateGitHubConfig}
                             />
                         </Panel>
                     </Col>
@@ -35,10 +37,9 @@ const App = ({state, loadSteps, selectStep, getDownloadZipUri}: Props) => {
     );
 };
 
-const renderRepoState = (
-    repoModelState: RepoState,
-    selectStep: (step: Step) => void,
-    getDownloadZipUri: (step: Step) => string) => {
+const renderRepoState = (repoModelState: RepoState,
+                         selectStep: (step: Step) => void,
+                         getDownloadZipUri: (step: Step) => string) => {
     if (repoModelState instanceof RepoModel) {
         return (
             <div>
