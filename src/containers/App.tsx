@@ -27,7 +27,8 @@ const mergeProps = (stateProps: StateProps, dispatchProps: DispatchProps) => {
     return {
         ...stateProps,
         loadSteps: () => dispatchProps.dispatch(actions.loadSteps(service)),
-        selectStep: (step: Step) => dispatchProps.dispatch(actions.updateSelectedStep(step))
+        selectStep: (step: Step) => dispatchProps.dispatch(actions.updateSelectedStep(step)),
+        getDownloadZipUri: (step: Step) => service.getDownloadZipUri(step.tag.name)
     };
 };
 

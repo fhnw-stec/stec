@@ -9,9 +9,10 @@ export interface Props {
     readonly state: StecRootState;
     readonly loadSteps: () => void;
     readonly selectStep: (step: Step) => void;
+    readonly getDownloadZipUri: (step: Step) => string;
 }
 
-const App = ({state, loadSteps, selectStep}: Props) => {
+const App = ({state, loadSteps, selectStep, getDownloadZipUri}: Props) => {
     return (
         <div className="container">
             <Grid>
@@ -27,14 +28,17 @@ const App = ({state, loadSteps, selectStep}: Props) => {
                     </Col>
                 </Row>
                 <Row>
-                    {renderRepoState(state.repoState, selectStep)}
+                    {renderRepoState(state.repoState, selectStep, getDownloadZipUri)}
                 </Row>
             </Grid>
         </div>
     );
 };
 
-const renderRepoState = (repoModelState: RepoState, selectStep: (step: Step) => void) => {
+const renderRepoState = (
+    repoModelState: RepoState,
+    selectStep: (step: Step) => void,
+    getDownloadZipUri: (step: Step) => string) => {
     if (repoModelState instanceof RepoModel) {
         return (
             <div>
@@ -43,6 +47,7 @@ const renderRepoState = (repoModelState: RepoState, selectStep: (step: Step) => 
                         steps={repoModelState.steps}
                         selectedStep={repoModelState.selectedStep}
                         selectStep={selectStep}
+                        getDownloadZipUri={getDownloadZipUri}
                     />
                 </Col>
                 <Col xs={9}>

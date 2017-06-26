@@ -43,4 +43,8 @@ export class GitHubService implements StecService {
         );
     }
 
+    getDownloadZipUri(ref: Ref): string {
+        return `${this.baseUrl}/zipball/${ref}`;
+    }
+
 }

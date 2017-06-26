@@ -6,12 +6,13 @@ export interface Props {
     readonly steps: Step[];
     readonly selectedStep: Step;
     readonly selectStep: (step: Step) => void;
+    readonly getDownloadZipUri: (step: Step) => string;
 }
 
-const StepList = ({steps, selectedStep, selectStep}: Props) => {
+const StepList = ({steps, selectedStep, selectStep, getDownloadZipUri}: Props) => {
     const active = (step: Step) => step === selectedStep ? 'active' : '';
     const downloadButton = (step: Step) => step === selectedStep ?
-        <a onClick={e => alert('TODO')}><Glyphicon glyph="download"/></a> :
+        <a href={getDownloadZipUri(step)}><Glyphicon glyph="download"/></a> :
         <div/>;
 
     return (

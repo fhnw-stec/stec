@@ -41,6 +41,7 @@ export const EMPTY_STEP: Step = {
 export interface StecService {
     fetchTags(): Promise<Tag[]>;
     fetchReadmeAsHtml(ref: Ref): Promise<string>;
+    getDownloadZipUri(ref: Ref): string;
 }
 
 export type Ref = string;
