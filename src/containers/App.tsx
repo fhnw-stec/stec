@@ -32,7 +32,7 @@ const mergeProps = (stateProps: StateProps, dispatchProps: DispatchProps) => {
             dispatchProps.dispatch(actions.updateGitHubConfig(gitHubConfig)),
         reload: () => dispatchProps.dispatch(actions.loadSteps(service)),
         downloadZipUri: (step: Step) => {
-            return service.getDownloadZipUri(step.tag.name);
+            return service.getDownloadZipUri(step.tag);
         }
     };
 };

@@ -33,7 +33,7 @@ export const reducer = (state: StecRootState, action: StecAction): StecRootState
 
         case UPDATE_STEPS: {
             const compareAlphanumerically = (s1: Step, s2: Step) =>
-                s1.tag.name.localeCompare(s2.tag.name, undefined, {numeric: true, sensitivity: 'base'});
+                s1.tag.localeCompare(s2.tag, undefined, {numeric: true, sensitivity: 'base'});
             const steps = (action as UpdateSteps).steps;
             const sortedSteps = steps.slice().sort(compareAlphanumerically); // slice to prevent in-place sort
             const selectedStep = sortedSteps.length === 0 ? EMPTY_STEP : sortedSteps[0];

@@ -1,4 +1,4 @@
-import {GitHubConfigState, Ref, StecService, Tag} from '../types/index';
+import {AnnotatedTag, GitHubConfigState, Ref, SHA, StecService, Tag} from '../types/index';
 
 export class GitHubService implements StecService {
 
@@ -10,7 +10,23 @@ export class GitHubService implements StecService {
 
     fetchTags(): Promise<Tag[]> {
 
-        const url = `${this.baseUrl}/tags`;
+        const url = `${this.baseUrl}/git/refs/tags`;
+
+        return fetch(url)
+            .then(
+                response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        return Promise.reject(response.statusText + ` (${url})`);
+                    }
+                },
+                error => Promise.reject(error)
+            );
+    }
+
+    fetchAnnotatedTag(sha: SHA): Promise<AnnotatedTag> {
+        const url = `${this.baseUrl}/git/tags/${sha}`;
 
         return fetch(url)
             .then(

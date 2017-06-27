@@ -19,7 +19,7 @@ const StepList = ({steps, selectedStep, selectStep, downloadZipUri}: Props) => {
         <ListGroup>
             {
                 steps.map(step =>
-                    <ListGroupItem key={step.tag.name} className={active(step)} onClick={e => selectStep(step)}>
+                    <ListGroupItem key={step.tag} className={active(step)} onClick={e => selectStep(step)}>
                         {step.title}
                         <span className="pull-right">
                         {downloadButton(step)}

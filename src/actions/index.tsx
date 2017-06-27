@@ -81,11 +81,13 @@ export const loadSteps = (service: StecService) => {
         try {
             dispatch(loadingProgress());
             const tags = await service.fetchTags();
-            const steps = await Promise.all(tags.map(async tag => {
-                const readme = await service.fetchReadmeAsHtml(tag.name);
+            const annotatedTags = tags.filter(t => /* tslint:disable */ t.object['type'] === 'tag' /* tslint:enable */);
+            const steps: Step[] = await Promise.all(annotatedTags.map(async t => {
+                const annotatedTag = await service.fetchAnnotatedTag(t.object.sha);
+                const readme = await service.fetchReadmeAsHtml(annotatedTag.tag);
                 return {
-                    tag,
-                    title: tag.name, // TODO: Extract title from README
+                    tag: annotatedTag.tag,
+                    title: annotatedTag.message,
                     readme
                 };
             }));

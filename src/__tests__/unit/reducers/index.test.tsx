@@ -13,9 +13,7 @@ describe('reducer', () => {
 
         const dummyStep = (s: string): Step => {
             return {
-                tag: {
-                    name: `tag.name-${s}`
-                },
+                tag: `tag-${s}`,
                 title: `title-${s}`,
                 readme: `readme-${s}`
             };

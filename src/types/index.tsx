@@ -31,25 +31,40 @@ export class Error {
 }
 
 export interface Step {
-    readonly tag: Tag;
+    readonly tag: Ref;
     readonly title: string;
     readonly readme: string;
 }
 
 export const EMPTY_STEP: Step = {
-    tag: {name: ''},
+    tag: '',
     title: '',
     readme: ''
 };
 
 export interface StecService {
     fetchTags(): Promise<Tag[]>;
+    fetchAnnotatedTag(sha: SHA): Promise<AnnotatedTag>;
     fetchReadmeAsHtml(ref: Ref): Promise<string>;
     getDownloadZipUri(ref: Ref): string;
 }
 
-export type Ref = string;
-
 export interface Tag {
-    readonly name: Ref;
+    readonly object: RefObject;
+    readonly type: RefObjectType;
+}
+
+export interface AnnotatedTag {
+    readonly tag: Ref;
+    readonly message: string;
+}
+
+export type Ref = string;
+export type SHA = string;
+
+type RefObjectType = 'tag' | 'commit';
+
+export interface RefObject {
+    readonly sha: string;
+    readonly url: string;
 }
