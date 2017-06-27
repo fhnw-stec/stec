@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {LoadingInProgress, RepoModel, RepoState, StecRootState, Step, GitHubConfigState} from '../types';
-import {Alert, Col, Grid, Panel, Row} from 'react-bootstrap';
-import StepList from './StepList';
-import Readme from './Readme';
+import {GitHubConfigState, StecRootState, Step} from '../types';
+import {Col, Grid, Panel, Row} from 'react-bootstrap';
 import GitHubConfig from './GitHubConfig';
+import Repo from './Repo';
 
 export interface Props {
     readonly state: StecRootState;
@@ -29,41 +28,17 @@ const App = ({state, selectStep, updateGitHubConfig, reload, downloadZipUri}: Pr
                     </Col>
                 </Row>
                 <Row>
-                    {renderRepoState(state.repoState, selectStep, downloadZipUri)}
+                    <Col xs={12}>
+                        <Repo
+                            repoModelState={state.repoState}
+                            selectStep={selectStep}
+                            downloadZipUri={downloadZipUri}
+                        />
+                    </Col>
                 </Row>
             </Grid>
         </div>
     );
-};
-
-const renderRepoState = (repoModelState: RepoState,
-                         selectStep: (step: Step) => void,
-                         downloadZipUri: (step: Step) => string) => {
-    if (repoModelState instanceof RepoModel) {
-        return (
-            <div>
-                <Col xs={3}>
-                    <StepList
-                        steps={repoModelState.steps}
-                        selectedStep={repoModelState.selectedStep}
-                        selectStep={selectStep}
-                        downloadZipUri={downloadZipUri}
-                    />
-                </Col>
-                <Col xs={9}>
-                    <Panel>
-                        <Readme readme={repoModelState.selectedStep.readme}/>
-                    </Panel>
-                </Col>
-            </div>
-        );
-    } else if (repoModelState instanceof LoadingInProgress) {
-        return <Col xs={12}><Alert bsStyle="info">Loading...</Alert></Col>;
-    } else if (repoModelState instanceof Error) {
-        return <Col xs={12}><Alert bsStyle="danger">{repoModelState.message}</Alert></Col>;
-    } else {
-        return <div/>;
-    }
 };
 
 export default App;
