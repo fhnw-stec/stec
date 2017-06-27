@@ -1,9 +1,9 @@
 import {
     UPDATE_GITHUB_CONFIG, UPDATE_SELECTED_STEP, UPDATE_STEPS, updateGitHubConfig, updateSelectedStep,
     updateSteps
-} from '../actions/index';
-import {reducer} from './index';
-import {Empty, EMPTY_STEP, RepoModel, Step} from '../types/index';
+} from '../../actions/index';
+import {reducer} from '../../reducers/index';
+import {Empty, EMPTY_STEP, RepoModel, Step} from '../../types/index';
 
 describe('reducer', () => {
 

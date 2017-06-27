@@ -1,4 +1,4 @@
-import {GitHubService} from './GitHubService';
+import {GitHubService} from '../../api/GitHubService';
 
 const service = new GitHubService({gitHubUser: 'fhnw-stec', gitHubRepo: 'stec-mock'});
 
