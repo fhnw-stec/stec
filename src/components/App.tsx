@@ -30,7 +30,7 @@ const App = ({state, selectStep, updateGitHubConfig, reload, downloadZipUri}: Pr
                 <Row>
                     <Col xs={12}>
                         <Repo
-                            repoModelState={state.repoState}
+                            repoState={state.repoState}
                             selectStep={selectStep}
                             downloadZipUri={downloadZipUri}
                         />
