@@ -47,7 +47,7 @@ export default class GitHubConfig extends React.Component<Props, State> {
                         onChange={/* tslint:disable */e => this.onGitHubRepoChanged((e as any).target.value)/* tslint:enable */}
                     />
                     {' '}
-                    <Button type={'submit'}>
+                    <Button type="submit">
                         <Glyphicon glyph="refresh"/>
                     </Button>
                 </FormGroup>
