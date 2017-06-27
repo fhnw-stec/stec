@@ -1,4 +1,4 @@
-import {Empty, EMPTY_STEP, LoadingInProgress, RepoModel, StecRootState} from '../types/index';
+import {Empty, EMPTY_STEP, LoadingInProgress, RepoModel, StecRootState, Step} from '../types/index';
 import {
     ERROR,
     ErrorAction,
@@ -32,11 +32,14 @@ export const reducer = (state: StecRootState, action: StecAction): StecRootState
             };
 
         case UPDATE_STEPS: {
+            const compareAlphanumerically = (s1: Step, s2: Step) =>
+                s1.tag.name.localeCompare(s2.tag.name, undefined, {numeric: true, sensitivity: 'base'});
             const steps = (action as UpdateSteps).steps;
-            const selectedStep = steps.length === 0 ? EMPTY_STEP : steps[0];
+            const sortedSteps = steps.slice().sort(compareAlphanumerically); // slice to prevent in-place sort
+            const selectedStep = sortedSteps.length === 0 ? EMPTY_STEP : sortedSteps[0];
             return {
                 ...state,
-                repoState: new RepoModel(steps, selectedStep)
+                repoState: new RepoModel(sortedSteps, selectedStep)
             };
         }
 
