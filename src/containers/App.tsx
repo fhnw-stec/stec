@@ -1,4 +1,4 @@
-import {GitHubRepo, GitHubUser, StecRootState, Step} from '../types/index';
+import {GitHubConfigState, StecRootState, Step} from '../types/index';
 import {connect} from 'react-redux';
 import App from '../components/App';
 import {Dispatch} from 'redux';
@@ -23,13 +23,13 @@ const mapDispatchToProps = (dispatch: Dispatch<actions.StecAction>): DispatchPro
 
 // mapDispatchToProps cannot access state -> mergeProps allows to mix and match
 const mergeProps = (stateProps: StateProps, dispatchProps: DispatchProps) => {
-    const service = new GitHubService(stateProps.state.gitHubUser, stateProps.state.gitHubRepo);
+    const service = new GitHubService(stateProps.state.gitHubConfig);
     // noinspection JSUnusedGlobalSymbols
     return {
         ...stateProps,
         selectStep: (step: Step) => dispatchProps.dispatch(actions.updateSelectedStep(step)),
-        updateGitHubConfig: (gitHubUser: GitHubUser, gitHubRepo: GitHubRepo) =>
-            dispatchProps.dispatch(actions.updateGitHubConfig(gitHubUser, gitHubRepo)),
+        updateGitHubConfig: (gitHubConfig: GitHubConfigState) =>
+            dispatchProps.dispatch(actions.updateGitHubConfig(gitHubConfig)),
         reload: () => dispatchProps.dispatch(actions.loadSteps(service)),
         downloadZipUri: (step: Step) => {
             return service.getDownloadZipUri(step.tag.name);

@@ -1,4 +1,4 @@
-import {GitHubUser, StecService, Step, GitHubRepo} from '../types/index';
+import {GitHubConfigState, StecService, Step} from '../types/index';
 import {Dispatch} from 'react-redux';
 
 export interface StecAction {
@@ -51,15 +51,13 @@ export const UPDATE_GITHUB_CONFIG = 'UPDATE_GITHUB_CONFIG';
 export type UPDATE_GITHUB_CONFIG = typeof UPDATE_GITHUB_CONFIG;
 
 export interface UpdateGitHubConfig extends StecAction {
-    readonly gitHubUser: GitHubUser;
-    readonly gitHubRepo: GitHubRepo;
+    readonly gitHubConfig: GitHubConfigState;
 }
 
-export const updateGitHubConfig = (gitHubUser: GitHubUser, gitHubRepo: GitHubRepo) => {
+export const updateGitHubConfig = (gitHubConfig: GitHubConfigState) => {
     return {
         type: UPDATE_GITHUB_CONFIG,
-        gitHubUser,
-        gitHubRepo
+        gitHubConfig
     };
 };
 

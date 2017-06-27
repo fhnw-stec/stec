@@ -1,6 +1,6 @@
 import {GitHubService} from './GitHubService';
 
-const service = new GitHubService('fhnw-stec', 'stec-mock');
+const service = new GitHubService({gitHubUser: 'fhnw-stec', gitHubRepo: 'stec-mock'});
 
 describe('GitHub service', () => {
 

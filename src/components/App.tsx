@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {GitHubRepo, GitHubUser, LoadingInProgress, RepoModel, RepoState, StecRootState, Step} from '../types';
+import {LoadingInProgress, RepoModel, RepoState, StecRootState, Step, GitHubConfigState} from '../types';
 import {Alert, Col, Grid, Panel, Row} from 'react-bootstrap';
 import StepList from './StepList';
 import Readme from './Readme';
@@ -8,7 +8,7 @@ import GitHubConfig from './GitHubConfig';
 export interface Props {
     readonly state: StecRootState;
     readonly selectStep: (step: Step) => void;
-    readonly updateGitHubConfig: (gitHubUser: GitHubUser, gitHubRepo: GitHubRepo) => void;
+    readonly updateGitHubConfig: (gitHubConfig: GitHubConfigState) => void;
     readonly reload: () => void;
     readonly downloadZipUri: (step: Step) => string;
 }
@@ -21,8 +21,7 @@ const App = ({state, selectStep, updateGitHubConfig, reload, downloadZipUri}: Pr
                     <Col xs={12}>
                         <Panel>
                             <GitHubConfig
-                                gitHubUser={state.gitHubUser}
-                                gitHubRepo={state.gitHubRepo}
+                                gitHubConfig={state.gitHubConfig}
                                 updateGitHubConfig={updateGitHubConfig}
                                 reload={reload}
                             />

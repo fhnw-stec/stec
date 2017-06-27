@@ -20,8 +20,7 @@ export const rootReducer = (state: StecRootState, action: StecAction): StecRootS
             const updateGitHubConfigAction = (action as UpdateGitHubConfig);
             return {
                 ...state,
-                gitHubUser: updateGitHubConfigAction.gitHubUser,
-                gitHubRepo: updateGitHubConfigAction.gitHubRepo,
+                gitHubConfig: updateGitHubConfigAction.gitHubConfig,
                 repoState: new Empty()
             };
         }

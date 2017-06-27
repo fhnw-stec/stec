@@ -1,11 +1,15 @@
 export interface StecRootState {
-    readonly gitHubUser: GitHubUser;
-    readonly gitHubRepo: GitHubRepo;
+    readonly gitHubConfig: GitHubConfigState;
     readonly repoState: RepoState;
 }
 
 export type GitHubUser = string;
 export type GitHubRepo = string;
+
+export interface GitHubConfigState {
+    readonly gitHubUser: GitHubUser;
+    readonly gitHubRepo: GitHubRepo;
+}
 
 export type RepoState = Empty | LoadingInProgress | Error | RepoModel;
 

@@ -1,27 +1,20 @@
-import {GitHubRepo, GitHubUser} from '../types/index';
+import {GitHubConfigState, GitHubRepo, GitHubUser} from '../types/index';
 import {Button, ControlLabel, Form, FormControl, FormGroup, Glyphicon} from 'react-bootstrap';
 import * as React from 'react';
 
 interface Props {
-    readonly gitHubUser: GitHubUser;
-    readonly gitHubRepo: GitHubRepo;
-    readonly updateGitHubConfig: (gitHubUser: GitHubUser, gitHubRepo: GitHubRepo) => void;
+    readonly gitHubConfig: GitHubConfigState;
+    readonly updateGitHubConfig: (gitHubConfig: GitHubConfigState) => void;
     readonly reload: () => void;
 }
 
-interface State {
-    readonly gitHubUser: GitHubUser;
-    readonly gitHubRepo: GitHubRepo;
-}
+type State = GitHubConfigState;
 
 export default class GitHubConfig extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-        this.state = {
-            gitHubUser: props.gitHubUser,
-            gitHubRepo: props.gitHubRepo
-        };
+        this.state = props.gitHubConfig;
     }
 
     componentWillMount() {
@@ -29,8 +22,7 @@ export default class GitHubConfig extends React.Component<Props, State> {
     }
 
     componentWillReceiveProps(nextProps: Props) {
-        if ((this.props.gitHubUser !== nextProps.gitHubUser) ||
-            (this.props.gitHubRepo !== nextProps.gitHubRepo)) {
+        if ((this.props.gitHubConfig !== nextProps.gitHubConfig)) {
             nextProps.reload();
         }
     }
@@ -63,16 +55,16 @@ export default class GitHubConfig extends React.Component<Props, State> {
     }
 
     // instance property in order not to lose the "this" context
+    // noinspection UnterminatedStatementJS
     private readonly onSubmit = (e: { preventDefault: () => void }) => {
 
         // no actual form submission
         e.preventDefault();
 
-        if ((this.state.gitHubUser === this.props.gitHubUser) &&
-            (this.state.gitHubRepo === this.props.gitHubRepo)) {
+        if ((this.state === this.props.gitHubConfig)) {
             this.props.reload();
         } else {
-            this.props.updateGitHubConfig(this.state.gitHubUser, this.state.gitHubRepo);
+            this.props.updateGitHubConfig(this.state);
         }
     }
 

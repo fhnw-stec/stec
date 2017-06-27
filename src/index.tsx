@@ -12,8 +12,10 @@ import {Provider} from 'react-redux';
 import App from './containers/App';
 
 const initialState: StecRootState = {
-    gitHubUser: 'fhnw-stec',
-    gitHubRepo: 'stec-mock',
+    gitHubConfig: {
+        gitHubUser: 'fhnw-stec',
+        gitHubRepo: 'stec-mock'
+    },
     repoState: new Empty()
 };
 
