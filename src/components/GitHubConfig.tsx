@@ -1,12 +1,12 @@
 import {GitHubRepo, GitHubUser} from '../types/index';
-import {Button, ControlLabel, Form, FormControl, FormGroup} from 'react-bootstrap';
+import {Button, ControlLabel, Form, FormControl, FormGroup, Glyphicon} from 'react-bootstrap';
 import * as React from 'react';
 
 interface Props {
     readonly gitHubUser: GitHubUser;
     readonly gitHubRepo: GitHubRepo;
     readonly updateGitHubConfig: (gitHubUser: GitHubUser, gitHubRepo: GitHubRepo) => void;
-    readonly refresh: () => void;
+    readonly reload: () => void;
 }
 
 interface State {
@@ -24,16 +24,27 @@ export default class GitHubConfig extends React.Component<Props, State> {
         };
     }
 
-    public render() {
+    componentWillMount() {
+        this.props.reload();
+    }
+
+    componentWillReceiveProps(nextProps: Props) {
+        if ((this.props.gitHubUser !== nextProps.gitHubUser) ||
+            (this.props.gitHubRepo !== nextProps.gitHubRepo)) {
+            nextProps.reload();
+        }
+    }
+
+    render() {
         return (
-            <Form inline={true}>
+            <Form inline={true} onSubmit={this.onSubmit}>
                 <FormGroup>
                     <ControlLabel>GitHub User</ControlLabel>
                     {' '} {/* Wow, this horizontal spacing is hacky – but according to docs */}
                     <FormControl
                         type="text"
                         value={this.state.gitHubUser}
-                        onChange={/* tslint:disable */e => this.handleGitHubUserChanged((e as any).target.value)/* tslint:enable */}
+                        onChange={/* tslint:disable */e => this.onGitHubUserChanged((e as any).target.value)/* tslint:enable */}
                     />
                     {' '}
                     <ControlLabel>GitHub Repository</ControlLabel>
@@ -41,26 +52,38 @@ export default class GitHubConfig extends React.Component<Props, State> {
                     <FormControl
                         type="text"
                         value={this.state.gitHubRepo}
-                        onChange={/* tslint:disable */e => this.handleGitHubRepoChanged((e as any).target.value)/* tslint:enable */}
+                        onChange={/* tslint:disable */e => this.onGitHubRepoChanged((e as any).target.value)/* tslint:enable */}
                     />
                     {' '}
-                    <Button
-                        onClick={e => this.props.updateGitHubConfig(this.state.gitHubUser, this.state.gitHubRepo)}
-                    >
-                        Refresh
+                    <Button type={'submit'}>
+                        <Glyphicon glyph="refresh"/>
                     </Button>
                 </FormGroup>
             </Form>);
     }
 
-    private handleGitHubUserChanged(gitHubUser: GitHubUser) {
+    // instance property in order not to lose the "this" context
+    private readonly onSubmit = (e: { preventDefault: () => void }) => {
+
+        // no actual form submission
+        e.preventDefault();
+
+        if ((this.state.gitHubUser === this.props.gitHubUser) &&
+            (this.state.gitHubRepo === this.props.gitHubRepo)) {
+            this.props.reload();
+        } else {
+            this.props.updateGitHubConfig(this.state.gitHubUser, this.state.gitHubRepo);
+        }
+    }
+
+    private onGitHubUserChanged(gitHubUser: GitHubUser) {
         this.setState({
             ...this.state,
             gitHubUser
         });
     }
 
-    private handleGitHubRepoChanged(gitHubRepo: GitHubRepo) {
+    private onGitHubRepoChanged(gitHubRepo: GitHubRepo) {
         this.setState({
             ...this.state,
             gitHubRepo

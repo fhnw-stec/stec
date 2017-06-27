@@ -55,13 +55,12 @@ export interface UpdateGitHubConfig extends StecAction {
     readonly gitHubRepo: GitHubRepo;
 }
 
-// returning a promise to make this action chain-able via `then`
 export const updateGitHubConfig = (gitHubUser: GitHubUser, gitHubRepo: GitHubRepo) => {
-    return (dispatch: Dispatch<StecAction>) => Promise.resolve({
+    return {
         type: UPDATE_GITHUB_CONFIG,
         gitHubUser,
         gitHubRepo
-    });
+    };
 };
 
 export const ERROR = 'ERROR';

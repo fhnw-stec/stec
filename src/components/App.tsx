@@ -7,13 +7,13 @@ import GitHubConfig from './GitHubConfig';
 
 export interface Props {
     readonly state: StecRootState;
-    readonly loadSteps: () => void;
     readonly selectStep: (step: Step) => void;
-    readonly getDownloadZipUri: (step: Step) => string;
     readonly updateGitHubConfig: (gitHubUser: GitHubUser, gitHubRepo: GitHubRepo) => void;
+    readonly reload: () => void;
+    readonly downloadZipUri: (step: Step) => string;
 }
 
-const App = ({state, loadSteps, selectStep, getDownloadZipUri, updateGitHubConfig}: Props) => {
+const App = ({state, selectStep, updateGitHubConfig, reload, downloadZipUri}: Props) => {
     return (
         <div className="container">
             <Grid>
@@ -23,14 +23,14 @@ const App = ({state, loadSteps, selectStep, getDownloadZipUri, updateGitHubConfi
                             <GitHubConfig
                                 gitHubUser={state.gitHubUser}
                                 gitHubRepo={state.gitHubRepo}
-                                refresh={loadSteps}
                                 updateGitHubConfig={updateGitHubConfig}
+                                reload={reload}
                             />
                         </Panel>
                     </Col>
                 </Row>
                 <Row>
-                    {renderRepoState(state.repoState, selectStep, getDownloadZipUri)}
+                    {renderRepoState(state.repoState, selectStep, downloadZipUri)}
                 </Row>
             </Grid>
         </div>
@@ -39,7 +39,7 @@ const App = ({state, loadSteps, selectStep, getDownloadZipUri, updateGitHubConfi
 
 const renderRepoState = (repoModelState: RepoState,
                          selectStep: (step: Step) => void,
-                         getDownloadZipUri: (step: Step) => string) => {
+                         downloadZipUri: (step: Step) => string) => {
     if (repoModelState instanceof RepoModel) {
         return (
             <div>
@@ -48,7 +48,7 @@ const renderRepoState = (repoModelState: RepoState,
                         steps={repoModelState.steps}
                         selectedStep={repoModelState.selectedStep}
                         selectStep={selectStep}
-                        getDownloadZipUri={getDownloadZipUri}
+                        downloadZipUri={downloadZipUri}
                     />
                 </Col>
                 <Col xs={9}>
