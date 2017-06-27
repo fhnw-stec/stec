@@ -12,7 +12,7 @@ import {
     UpdateSteps
 } from '../actions/index';
 
-export const rootReducer = (state: StecRootState, action: StecAction): StecRootState => {
+export const reducer = (state: StecRootState, action: StecAction): StecRootState => {
 
     switch (action.type) {
 

@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import {applyMiddleware, createStore} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {Empty, StecRootState} from './types/index';
-import {rootReducer} from './reducers/index';
+import {reducer} from './reducers/index';
 import {Provider} from 'react-redux';
 import App from './containers/App';
 
@@ -22,7 +22,7 @@ const initialState: StecRootState = {
 const loggerMiddleware = require('redux-logger').createLogger();
 
 const store = createStore<StecRootState>(
-    rootReducer,
+    reducer,
     initialState,
     applyMiddleware(thunkMiddleware, loggerMiddleware)
 );
