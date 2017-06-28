@@ -80,20 +80,24 @@ export const loadSteps = (service: StecService) => {
     return async (dispatch: Dispatch<StecAction>) => {
         try {
             dispatch(loadingProgress());
-            const tags = await service.fetchTags();
-            const annotatedTags = tags.filter(t => /* tslint:disable */ t.object['type'] === 'tag' /* tslint:enable */);
-            const steps: Step[] = await Promise.all(annotatedTags.map(async t => {
-                const annotatedTag = await service.fetchAnnotatedTag(t.object.sha);
-                const readme = await service.fetchReadmeAsHtml(annotatedTag.tag);
-                return {
-                    tag: annotatedTag.tag,
-                    title: annotatedTag.message,
-                    readme
-                };
-            }));
+            const steps = await loadStepsImpl(service);
             dispatch(updateSteps(steps));
         } catch (e) {
             dispatch(error(e));
         }
     };
+};
+
+export const loadStepsImpl = async (service: StecService) => {
+    const tags = await service.fetchTags();
+    const annotatedTags = tags.filter(t => /* tslint:disable */ t.object['type'] === 'tag' /* tslint:enable */);
+    return await Promise.all(annotatedTags.map(async t => {
+        const annotatedTag = await service.fetchAnnotatedTag(t.object.sha);
+        const readme = await service.fetchReadmeAsHtml(annotatedTag.tag);
+        return {
+            tag: annotatedTag.tag.trim(),
+            title: annotatedTag.message.trim(),
+            readme
+        };
+    }));
 };
