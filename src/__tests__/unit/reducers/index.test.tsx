@@ -6,8 +6,8 @@ import {
     updateSelectedStep,
     updateSteps
 } from '../../../actions/index';
-import {reducer} from '../../../reducers/index';
-import {Empty, EMPTY_STEP, LoadingInProgress, RepoModel, Step} from '../../../types/index';
+import { reducer } from '../../../reducers/index';
+import { Empty, EMPTY_STEP, LoadingInProgress, RepoModel, Step } from '../../../types/index';
 
 describe('reducer', () => {
 

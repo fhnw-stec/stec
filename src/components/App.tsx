@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {GitHubConfigState, StecRootState, Step} from '../types';
-import {Col, Grid, Panel, Row} from 'react-bootstrap';
+import { GitHubConfigState, StecRootState, Step } from '../types';
+import { Col, Grid, Panel, Row } from 'react-bootstrap';
 import GitHubConfig from './GitHubConfig';
 import Repo from './Repo';
 

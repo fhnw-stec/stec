@@ -1,4 +1,4 @@
-import {Empty, EMPTY_STEP, LoadingInProgress, RepoModel, StecRootState, Step} from '../types/index';
+import { Empty, EMPTY_STEP, LoadingInProgress, RepoModel, StecRootState, Step } from '../types/index';
 import {
     ERROR,
     ErrorAction,

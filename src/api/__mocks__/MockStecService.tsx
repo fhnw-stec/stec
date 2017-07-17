@@ -1,4 +1,4 @@
-import {AnnotatedTag, Ref, SHA, StecService, Tag} from '../../types/index';
+import { AnnotatedTag, Ref, SHA, StecService, Tag } from '../../types/index';
 
 export class MockStecService implements StecService {
 

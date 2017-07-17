@@ -1,4 +1,4 @@
-import {AnnotatedTag, GitHubConfigState, Ref, SHA, StecService, Tag} from '../types/index';
+import { AnnotatedTag, GitHubConfigState, Ref, SHA, StecService, Tag } from '../types/index';
 
 export class GitHubService implements StecService {
 

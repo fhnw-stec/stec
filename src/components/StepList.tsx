@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Step} from '../types';
-import {Glyphicon, ListGroup, ListGroupItem} from 'react-bootstrap';
+import { Step } from '../types';
+import { Glyphicon, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 export interface Props {
     readonly steps: Step[];

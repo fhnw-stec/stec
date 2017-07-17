@@ -1,5 +1,5 @@
-import {GitHubConfigState, StecService, Step} from '../types/index';
-import {Dispatch} from 'react-redux';
+import { GitHubConfigState, StecService, Step } from '../types/index';
+import { Dispatch } from 'react-redux';
 
 export interface StecAction {
     readonly type: string;

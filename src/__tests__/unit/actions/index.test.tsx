@@ -1,5 +1,5 @@
-import {MockStecService} from '../../../api/__mocks__/MockStecService';
-import {loadStepsImpl} from '../../../actions/index';
+import { MockStecService } from '../../../api/__mocks__/MockStecService';
+import { loadStepsImpl } from '../../../actions/index';
 
 describe('actions', () => {
 

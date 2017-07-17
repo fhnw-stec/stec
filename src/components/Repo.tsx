@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {LoadingInProgress, RepoModel, RepoState, Step} from '../types/index';
-import {Alert, Col, Panel, Row} from 'react-bootstrap';
+import { LoadingInProgress, RepoModel, RepoState, Step } from '../types/index';
+import { Alert, Col, Panel, Row } from 'react-bootstrap';
 import StepList from './StepList';
 import Readme from './Readme';
 

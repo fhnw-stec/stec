@@ -4,11 +4,11 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import {applyMiddleware, createStore} from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import {Empty, StecRootState} from './types/index';
-import {reducer} from './reducers/index';
-import {Provider} from 'react-redux';
+import { Empty, StecRootState } from './types/index';
+import { reducer } from './reducers/index';
+import { Provider } from 'react-redux';
 import App from './containers/App';
 
 const initialState: StecRootState = {

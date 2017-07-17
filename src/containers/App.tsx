@@ -1,9 +1,9 @@
-import {GitHubConfigState, StecRootState, Step} from '../types/index';
-import {connect} from 'react-redux';
+import { GitHubConfigState, StecRootState, Step } from '../types/index';
+import { connect } from 'react-redux';
 import App from '../components/App';
-import {Dispatch} from 'redux';
+import { Dispatch } from 'redux';
 import * as actions from '../actions/';
-import {GitHubService} from '../api/GitHubService';
+import { GitHubService } from '../api/GitHubService';
 
 interface StateProps {
     state: StecRootState;
