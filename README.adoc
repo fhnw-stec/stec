@@ -18,7 +18,7 @@
 
 WARNING: Will push git version tag and gh-pages
 
-`npm version v2.1.42 -m"Release v2.1.42"` (https://docs.npmjs.com/cli/version)
+`npm version v1.2.3` (https://docs.npmjs.com/cli/version)
 
 ## Details
 
