@@ -11,10 +11,17 @@ import { reducer } from './reducers/index';
 import { Provider } from 'react-redux';
 import App from './containers/App';
 
+const urlSearchParams = new URLSearchParams(window.location.search);
+
+const getUrlParam = (name: string, defaultValue: string): string => {
+    const value = urlSearchParams.get(name);
+    return value === null ? defaultValue : value.trim();
+};
+
 const initialState: StecRootState = {
     gitHubConfig: {
-        gitHubUser: 'fhnw-stec',
-        gitHubRepo: 'stec-mock'
+        gitHubUser: getUrlParam('github-user', 'fhnw-stec'),
+        gitHubRepo: getUrlParam('github-repo', 'stec-mock')
     },
     repoState: new Empty()
 };
