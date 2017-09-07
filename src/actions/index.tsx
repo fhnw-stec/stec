@@ -94,9 +94,11 @@ export const loadStepsImpl = async (service: StecService) => {
     return await Promise.all(annotatedTags.map(async t => {
         const annotatedTag = await service.fetchAnnotatedTag(t.object.sha);
         const readme = await service.fetchReadmeAsHtml(annotatedTag.tag);
+        const diff = await service.fetchDiff(annotatedTag.object.sha.trim());
         return {
             tag: annotatedTag.tag.trim(),
             title: annotatedTag.message.trim(),
+            diff: diff,
             readme
         };
     }));

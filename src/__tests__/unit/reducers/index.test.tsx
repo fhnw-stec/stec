@@ -15,7 +15,8 @@ describe('reducer', () => {
             return {
                 tag: `tag-${s}`,
                 title: `title-${s}`,
-                readme: `readme-${s}`
+                readme: `readme-${s}`,
+                diff: ``
             };
         };
 

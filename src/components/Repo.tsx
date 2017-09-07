@@ -3,6 +3,7 @@ import { LoadingInProgress, RepoModel, RepoState, Step } from '../types/index';
 import { Alert, Col, Panel, Row } from 'react-bootstrap';
 import StepList from './StepList';
 import Readme from './Readme';
+import DiffList from './DiffList';
 
 export interface Props {
     readonly repoState: RepoState;
@@ -28,6 +29,7 @@ const Repo = ({repoState, selectStep, downloadZipUri}: Props) => {
                     <Col xs={9}>
                         <Panel>
                             <Readme readme={repoState.selectedStep.readme}/>
+                            <DiffList diff={repoState.selectedStep.diff}/>
                         </Panel>
                     </Col>
                 </Row>

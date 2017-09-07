@@ -59,6 +59,24 @@ export class GitHubService implements StecService {
         );
     }
 
+    fetchDiff(sha: SHA): Promise<string> {
+        const url = `${this.baseUrl}/commits/${sha}`;
+
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/vnd.github.v3.diff');
+
+        return fetch(url, {headers: headers}).then(
+            response => {
+                if (response.ok || response.status === 0) {
+                    return response.text();
+                } else {
+                    return Promise.reject(response.status + ` (${url})`);
+                }
+            },
+            error => Promise.reject(error)
+        );
+    }
+
     getDownloadZipUri(ref: Ref): string {
         return `${this.baseUrl}/zipball/${ref}`;
     }

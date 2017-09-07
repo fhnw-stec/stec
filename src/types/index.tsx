@@ -34,18 +34,21 @@ export interface Step {
     readonly tag: Ref;
     readonly title: string;
     readonly readme: string;
+    readonly diff: string;
 }
 
 export const EMPTY_STEP: Step = {
     tag: '',
     title: '',
-    readme: ''
+    readme: '',
+    diff: ''
 };
 
 export interface StecService {
     fetchTags(): Promise<Tag[]>;
     fetchAnnotatedTag(sha: SHA): Promise<AnnotatedTag>;
     fetchReadmeAsHtml(ref: Ref): Promise<string>;
+    fetchDiff(sha: SHA): Promise<string>;
     getDownloadZipUri(ref: Ref): string;
 }
 
@@ -57,6 +60,7 @@ export interface Tag {
 export interface AnnotatedTag {
     readonly tag: Ref;
     readonly message: string;
+    readonly object: RefObject;
 }
 
 export type Ref = string;
