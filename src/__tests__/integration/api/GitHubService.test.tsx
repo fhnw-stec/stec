@@ -7,7 +7,7 @@ describe('GitHub service', () => {
     it('should fetch tags', async () => {
         expect.assertions(1);
         const tags = await service.fetchTags();
-        expect(tags).toMatchObject([{ref: 'refs/tags/step-1'}, {ref: 'refs/tags/step-2'}]);
+        expect(tags).toMatchObject([{ref: 'refs/tags/step-1'}, {ref: 'refs/tags/step-2'}, {ref: 'refs/tags/step-3'}]);
     });
 
     it('should fetch README as HTML', async () => {

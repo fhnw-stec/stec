@@ -5,9 +5,9 @@ import {
     updateGitHubConfig,
     updateSelectedStep,
     updateSteps
-} from '../../../actions/index';
-import { reducer } from '../../../reducers/index';
-import { Empty, EMPTY_STEP, LoadingInProgress, RepoModel, Step } from '../../../types/index';
+} from '../../../actions';
+import { reducer } from '../../../reducers';
+import { Empty, EMPTY_STEP, EMPTY_TREE, LoadingInProgress, RepoModel, Step } from '../../../types';
 
 describe('reducer', () => {
 
@@ -15,7 +15,8 @@ describe('reducer', () => {
             return {
                 tag: `tag-${s}`,
                 title: `title-${s}`,
-                readme: `readme-${s}`
+                readme: `readme-${s}`,
+                tree: EMPTY_TREE
             };
         };
 

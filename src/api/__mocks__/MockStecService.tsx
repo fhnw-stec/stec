@@ -1,4 +1,4 @@
-import { AnnotatedTag, Ref, SHA, StecService, Tag } from '../../types/index';
+import { AnnotatedTag, Ref, SHA, StecService, Tag, Tree } from '../../types';
 
 export class MockStecService implements StecService {
 
@@ -7,16 +7,23 @@ export class MockStecService implements StecService {
     }
 
     fetchAnnotatedTag(sha: SHA): Promise<AnnotatedTag> {
-        const shortSha = sha.substring(sha.length - 6, sha.length);
-        return Promise.resolve(require(`./mock-reponses/git-refs-tags-${shortSha}.json`));
+        return Promise.resolve(require(`./mock-reponses/git-refs-tags-${this.shortSha(sha)}.json`));
     }
 
     fetchReadmeAsHtml(ref: Ref): Promise<string> {
         return Promise.resolve(`Mock README ${ref}`);
     }
 
+    fetchTree(sha: SHA): Promise<Tree> {
+        return Promise.resolve(require(`./mock-reponses/git-trees-${this.shortSha(sha)}.json`));
+    }
+
     getDownloadZipUri(ref: Ref): string {
         return `http://example.com/${ref}.zip`;
+    }
+
+    private shortSha(sha: SHA) {
+        return sha.substring(0, 6);
     }
 
 }

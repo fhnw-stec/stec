@@ -1,4 +1,4 @@
-import { AnnotatedTag, GitHubConfigState, Ref, SHA, StecService, Tag } from '../types/index';
+import { AnnotatedTag, GitHubConfigState, Ref, SHA, StecService, Tag, Tree } from '../types';
 
 export class GitHubService implements StecService {
 
@@ -51,6 +51,24 @@ export class GitHubService implements StecService {
             response => {
                 if (response.ok) {
                     return response.text();
+                } else {
+                    return Promise.reject(response.statusText + ` (${url})`);
+                }
+            },
+            error => Promise.reject(error)
+        );
+    }
+
+    fetchTree(sha: SHA): Promise<Tree> {
+        const url = `${this.baseUrl}/git/trees/${sha}?recursive=1`;
+
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/vnd.github.v3.html');
+
+        return fetch(url, {headers}).then(
+            response => {
+                if (response.ok) {
+                    return response.json();
                 } else {
                     return Promise.reject(response.statusText + ` (${url})`);
                 }

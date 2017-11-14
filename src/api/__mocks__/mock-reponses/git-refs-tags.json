@@ -16,5 +16,14 @@
       "type": "tag",
       "url": "https://api.github.com/repos/fhnw-stec/stec-mock/git/tags/81c3fe7fe6bff3443f768d22841bb3233c5648ff"
     }
+  },
+  {
+    "ref": "refs/tags/step-3",
+    "url": "https://api.github.com/repos/fhnw-stec/stec-mock/git/refs/tags/step-3",
+    "object": {
+      "sha": "27782f21ea556f2c6656c05b11cce4ff91514a2e",
+      "type": "tag",
+      "url": "https://api.github.com/repos/fhnw-stec/stec-mock/git/tags/27782f21ea556f2c6656c05b11cce4ff91514a2e"
+    }
   }
 ]

@@ -1,0 +1,22 @@
+{
+  "sha": "27782f21ea556f2c6656c05b11cce4ff91514a2e",
+  "url": "https://api.github.com/repos/fhnw-stec/stec-mock/git/tags/27782f21ea556f2c6656c05b11cce4ff91514a2e",
+  "tagger": {
+    "name": "Rahel Lüthy",
+    "email": "rahel.luethy@gmail.com",
+    "date": "2017-11-14T12:54:31Z"
+  },
+  "object": {
+    "sha": "657bdcea00abaafb5d4a1f8112ea519c3582db5f",
+    "type": "commit",
+    "url": "https://api.github.com/repos/fhnw-stec/stec-mock/git/commits/657bdcea00abaafb5d4a1f8112ea519c3582db5f"
+  },
+  "tag": "step-3",
+  "message": "Step Three",
+  "verification": {
+    "verified": false,
+    "reason": "unsigned",
+    "signature": null,
+    "payload": null
+  }
+}

@@ -34,18 +34,35 @@ export interface Step {
     readonly tag: Ref;
     readonly title: string;
     readonly readme: string;
+    readonly tree: Tree;
 }
+
+export interface Tree {
+    readonly tree: TreeEntry[];
+}
+
+export const EMPTY_TREE: Tree = {
+    tree: []
+};
 
 export const EMPTY_STEP: Step = {
     tag: '',
     title: '',
-    readme: ''
+    readme: '',
+    tree: EMPTY_TREE
 };
+
+export interface TreeEntry {
+    readonly path: string;
+    readonly mode: string;
+    readonly sha: SHA;
+}
 
 export interface StecService {
     fetchTags(): Promise<Tag[]>;
     fetchAnnotatedTag(sha: SHA): Promise<AnnotatedTag>;
     fetchReadmeAsHtml(ref: Ref): Promise<string>;
+    fetchTree(sha: SHA): Promise<Tree>;
     getDownloadZipUri(ref: Ref): string;
 }
 
@@ -56,6 +73,9 @@ export interface Tag {
 
 export interface AnnotatedTag {
     readonly tag: Ref;
+    readonly object: {
+        readonly sha: SHA
+    };
     readonly message: string;
 }
 

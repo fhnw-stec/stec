@@ -1,0 +1,19 @@
+{
+  "tree": [
+    {
+      "path": ".gitignore",
+      "mode": "blob",
+      "sha": "485dee64bcfb48793379b200a1afd14e85a8aaf4"
+    },
+    {
+      "path": "README.adoc",
+      "mode": "blob",
+      "sha": "8ec793d0ff9c3fbe4566da0ba90db920bc6e68ff"
+    },
+    {
+      "path": "hello-world.txt",
+      "mode": "blob",
+      "sha": "2d684f44857386fe986cd0f3b9676bbafeeea318"
+    }
+  ]
+}

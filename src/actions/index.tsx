@@ -94,10 +94,12 @@ export const loadStepsImpl = async (service: StecService) => {
     return await Promise.all(annotatedTags.map(async t => {
         const annotatedTag = await service.fetchAnnotatedTag(t.object.sha);
         const readme = await service.fetchReadmeAsHtml(annotatedTag.tag);
+        const tree = await service.fetchTree(annotatedTag.object.sha);
         return {
             tag: annotatedTag.tag.trim(),
             title: annotatedTag.message.trim(),
-            readme
+            readme,
+            tree
         };
     }));
 };

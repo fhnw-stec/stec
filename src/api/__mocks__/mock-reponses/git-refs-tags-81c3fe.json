@@ -12,5 +12,11 @@
     "url": "https://api.github.com/repos/fhnw-stec/stec-mock/git/commits/134d93c18c830667a91721cbac47fd0bb14d3d43"
   },
   "tag": "step-2",
-  "message": "Step Two\n"
+  "message": "Step Two\n",
+  "verification": {
+    "verified": false,
+    "reason": "unsigned",
+    "signature": null,
+    "payload": null
+  }
 }
