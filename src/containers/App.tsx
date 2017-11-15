@@ -33,6 +33,9 @@ const mergeProps = (stateProps: StateProps, dispatchProps: DispatchProps) => {
         reload: () => dispatchProps.dispatch(actions.loadSteps(service)),
         downloadZipUri: (step: Step) => {
             return service.getDownloadZipUri(step.tag);
+        },
+        fetchAllAsZip: (steps: Step[]) => {
+            return service.fetchAllStepsAsZip(steps.map(s => s.tag));
         }
     };
 };

@@ -1,4 +1,5 @@
 import { AnnotatedTag, GitHubConfigState, Ref, SHA, StecService, Tag, Tree } from '../types';
+import * as JSZip from 'jszip';
 
 export class GitHubService implements StecService {
 
@@ -79,6 +80,12 @@ export class GitHubService implements StecService {
 
     getDownloadZipUri(ref: Ref): string {
         return `${this.baseUrl}/zipball/${ref}`;
+    }
+
+    fetchAllStepsAsZip(refs: Ref[]): Promise<JSZip> {
+        // TODO: Create master zip of all step zips
+        const zip = new JSZip();
+        return Promise.resolve(zip);
     }
 
 }

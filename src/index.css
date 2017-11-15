@@ -12,8 +12,12 @@ body {
     padding-top: 10px;
 }
 
-.glyphicon-download {
+.glyphicon-download-single {
     color: white;
+}
+
+.glyphicon-download-all {
+    color: black;
 }
 
 .glyphicon-file {

@@ -3,6 +3,7 @@ import { GitHubConfigState, StecRootState, Step } from '../types';
 import { Col, Grid, Panel, Row } from 'react-bootstrap';
 import GitHubConfig from './GitHubConfig';
 import Repo from './Repo';
+import * as JSZip from 'jszip';
 
 export interface Props {
     readonly state: StecRootState;
@@ -10,9 +11,10 @@ export interface Props {
     readonly updateGitHubConfig: (gitHubConfig: GitHubConfigState) => void;
     readonly reload: () => void;
     readonly downloadZipUri: (step: Step) => string;
+    readonly fetchAllAsZip: (steps: Step[]) => Promise<JSZip>;
 }
 
-const App = ({state, selectStep, updateGitHubConfig, reload, downloadZipUri}: Props) => {
+const App = (p: Props) => {
     return (
         <div className="container">
             <Grid>
@@ -20,9 +22,9 @@ const App = ({state, selectStep, updateGitHubConfig, reload, downloadZipUri}: Pr
                     <Col xs={12}>
                         <Panel>
                             <GitHubConfig
-                                gitHubConfig={state.gitHubConfig}
-                                updateGitHubConfig={updateGitHubConfig}
-                                reload={reload}
+                                gitHubConfig={p.state.gitHubConfig}
+                                updateGitHubConfig={p.updateGitHubConfig}
+                                reload={p.reload}
                             />
                         </Panel>
                     </Col>
@@ -30,10 +32,12 @@ const App = ({state, selectStep, updateGitHubConfig, reload, downloadZipUri}: Pr
                 <Row>
                     <Col xs={12}>
                         <Repo
-                            repoState={state.repoState}
-                            selectStep={selectStep}
-                            downloadZipUri={downloadZipUri}
-                            blobBaseUrl={`https://github.com/${state.gitHubConfig.gitHubUser}/${state.gitHubConfig.gitHubRepo}/blob`}
+                            gitHubConfig={p.state.gitHubConfig}
+                            repoState={p.state.repoState}
+                            selectStep={p.selectStep}
+                            downloadZipUri={p.downloadZipUri}
+                            fetchAllAsZip={p.fetchAllAsZip}
+                            blobBaseUrl={`https://github.com/${p.state.gitHubConfig.gitHubUser}/${p.state.gitHubConfig.gitHubRepo}/blob`}
                         />
                     </Col>
                 </Row>

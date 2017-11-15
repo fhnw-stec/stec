@@ -1,45 +1,50 @@
 import * as React from 'react';
-import { LoadingInProgress, RepoModel, RepoState, Step } from '../types';
+import { GitHubConfigState, LoadingInProgress, RepoModel, RepoState, Step } from '../types';
 import { Alert, Col, Panel, Row } from 'react-bootstrap';
 import StepList from './StepList';
 import Readme from './Readme';
 import FileList from './FileList';
+import * as JSZip from 'jszip';
 
 export interface Props {
+    readonly gitHubConfig: GitHubConfigState;
     readonly repoState: RepoState;
     readonly selectStep: (step: Step) => void;
     readonly downloadZipUri: (step: Step) => string;
+    readonly fetchAllAsZip: (steps: Step[]) => Promise<JSZip>;
     readonly blobBaseUrl: String;
 }
 
-const Repo = ({repoState, selectStep, downloadZipUri, blobBaseUrl}: Props) => {
-    if (repoState instanceof RepoModel) {
-        if (repoState.steps.length === 0) {
+const Repo = (p: Props) => {
+    if (p.repoState instanceof RepoModel) {
+        if (p.repoState.steps.length === 0) {
             return <Alert bsStyle="info">No annotated tags</Alert>;
         } else {
             return (
                 <Row>
                     <Col xs={3}>
                         <StepList
-                            steps={repoState.steps}
-                            selectedStep={repoState.selectedStep}
-                            selectStep={selectStep}
-                            downloadZipUri={downloadZipUri}
+                            gitHubConfig={p.gitHubConfig}
+                            steps={p.repoState.steps}
+                            selectedStep={p.repoState.selectedStep}
+                            selectStep={p.selectStep}
+                            downloadZipUri={p.downloadZipUri}
+                            fetchAllAsZip={p.fetchAllAsZip}
                         />
                     </Col>
                     <Col xs={9}>
                         <Panel>
-                            <Readme readme={repoState.selectedStep.readme}/>
+                            <Readme readme={p.repoState.selectedStep.readme}/>
                         </Panel>
-                        <FileList fileBaseUrl={blobBaseUrl + '/' + repoState.selectedStep.tag} tree={repoState.selectedStep.tree}/>
+                        <FileList fileBaseUrl={p.blobBaseUrl + '/' + p.repoState.selectedStep.tag} tree={p.repoState.selectedStep.tree}/>
                     </Col>
                 </Row>
             );
         }
-    } else if (repoState instanceof LoadingInProgress) {
+    } else if (p.repoState instanceof LoadingInProgress) {
         return <Alert bsStyle="info">Loading...</Alert>;
-    } else if (repoState instanceof Error) {
-        return <Alert bsStyle="danger">{repoState.message}</Alert>;
+    } else if (p.repoState instanceof Error) {
+        return <Alert bsStyle="danger">{p.repoState.message}</Alert>;
     } else {
         return <div/>;
     }
