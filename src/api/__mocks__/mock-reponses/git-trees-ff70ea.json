@@ -2,8 +2,7 @@
   "tree": [
     {
       "path": "README.adoc",
-      "mode": "blob",
-      "sha": "9c2d38bbdccebdb67add6f43a4ae8a5dba64f867"
+      "type": "blob"
     }
   ]
 }

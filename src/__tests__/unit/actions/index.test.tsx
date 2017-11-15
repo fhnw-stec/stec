@@ -14,8 +14,7 @@ describe('actions', () => {
                     tree: [
                         {
                             path: 'README.adoc',
-                            mode: 'blob',
-                            sha: '9c2d38bbdccebdb67add6f43a4ae8a5dba64f867'
+                            type: 'blob'
                         }
                     ]
                 }
@@ -25,18 +24,15 @@ describe('actions', () => {
                     tree: [
                         {
                             path: '.gitignore',
-                            mode: 'blob',
-                            sha: '485dee64bcfb48793379b200a1afd14e85a8aaf4'
+                            type: 'blob'
                         },
                         {
                             path: 'README.adoc',
-                            mode: 'blob',
-                            sha: '8ec793d0ff9c3fbe4566da0ba90db920bc6e68ff'
+                            type: 'blob'
                         },
                         {
                             path: 'hello-world.txt',
-                            mode: 'blob',
-                            sha: '2d684f44857386fe986cd0f3b9676bbafeeea318'
+                            type: 'blob'
                         }
                     ]
                 }
@@ -46,28 +42,23 @@ describe('actions', () => {
                     tree: [
                         {
                             path: '.gitignore',
-                            mode: 'blob',
-                            sha: '485dee64bcfb48793379b200a1afd14e85a8aaf4',
+                            type: 'blob'
                         },
                         {
                             path: 'README.adoc',
-                            mode: 'blob',
-                            sha: 'd944c431f0b90a2ea24390b5cbeda9243fbca877',
+                            type: 'blob'
                         },
                         {
                             path: 'example-dir/bli.txt',
-                            mode: 'blob',
-                            sha: 'e69de29bb2d1d6434b8b29ae775ad8c2e48c5391',
+                            type: 'blob'
                         },
                         {
                             path: 'example-dir/example-sub-dir/bla.txt',
-                            mode: 'blob',
-                            sha: 'e69de29bb2d1d6434b8b29ae775ad8c2e48c5391',
+                            type: 'blob'
                         },
                         {
                             path: 'hello-world.txt',
-                            mode: 'blob',
-                            sha: '2d684f44857386fe986cd0f3b9676bbafeeea318',
+                            type: 'blob'
                         }
                     ]
                 }

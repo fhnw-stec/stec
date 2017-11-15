@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { LoadingInProgress, RepoModel, RepoState, Step } from '../types/index';
+import { LoadingInProgress, RepoModel, RepoState, Step } from '../types';
 import { Alert, Col, Panel, Row } from 'react-bootstrap';
 import StepList from './StepList';
 import Readme from './Readme';
+import FileList from './FileList';
 
 export interface Props {
     readonly repoState: RepoState;
     readonly selectStep: (step: Step) => void;
     readonly downloadZipUri: (step: Step) => string;
+    readonly blobBaseUrl: String;
 }
 
-const Repo = ({repoState, selectStep, downloadZipUri}: Props) => {
+const Repo = ({repoState, selectStep, downloadZipUri, blobBaseUrl}: Props) => {
     if (repoState instanceof RepoModel) {
         if (repoState.steps.length === 0) {
             return <Alert bsStyle="info">No annotated tags</Alert>;
@@ -29,6 +31,7 @@ const Repo = ({repoState, selectStep, downloadZipUri}: Props) => {
                         <Panel>
                             <Readme readme={repoState.selectedStep.readme}/>
                         </Panel>
+                        <FileList fileBaseUrl={blobBaseUrl + '/' + repoState.selectedStep.tag} tree={repoState.selectedStep.tree}/>
                     </Col>
                 </Row>
             );

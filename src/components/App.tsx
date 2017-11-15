@@ -33,6 +33,7 @@ const App = ({state, selectStep, updateGitHubConfig, reload, downloadZipUri}: Pr
                             repoState={state.repoState}
                             selectStep={selectStep}
                             downloadZipUri={downloadZipUri}
+                            blobBaseUrl={`https://github.com/${state.gitHubConfig.gitHubUser}/${state.gitHubConfig.gitHubRepo}/blob`}
                         />
                     </Col>
                 </Row>

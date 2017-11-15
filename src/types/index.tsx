@@ -54,8 +54,7 @@ export const EMPTY_STEP: Step = {
 
 export interface TreeEntry {
     readonly path: string;
-    readonly mode: string;
-    readonly sha: SHA;
+    readonly type: string;
 }
 
 export interface StecService {
