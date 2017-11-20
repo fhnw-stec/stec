@@ -32,10 +32,10 @@ const StepList = (p: Props) => {
         : <div/>;
 
     const downloadAllStepsButton = (
-            <a href="#" onClick={e => saveZip()}>
-                <Glyphicon glyph="download" className="glyphicon-download-all" title="Download All"/>
-            </a>
-        );
+        <a href="#" onClick={e => saveZip()} style={{visibility: 'hidden'}}>
+            <Glyphicon glyph="download" className="glyphicon-download-all" title="Download All"/>
+        </a>
+    );
 
     return (
         <ListGroup>
