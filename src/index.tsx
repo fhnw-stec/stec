@@ -21,7 +21,8 @@ const getUrlParam = (name: string, defaultValue: string): string => {
 const initialState: StecRootState = {
     gitHubConfig: {
         gitHubUser: getUrlParam('github-user', 'fhnw-stec'),
-        gitHubRepo: getUrlParam('github-repo', 'stec-mock')
+        gitHubRepo: getUrlParam('github-repo', 'stec-mock'),
+        accessToken: getUrlParam('id', '')
     },
     repoState: new Empty()
 };

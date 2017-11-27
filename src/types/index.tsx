@@ -9,6 +9,7 @@ export type GitHubRepo = string;
 export interface GitHubConfigState {
     readonly gitHubUser: GitHubUser;
     readonly gitHubRepo: GitHubRepo;
+    readonly accessToken: string;
 }
 
 export type RepoState = Empty | LoadingInProgress | Error | RepoModel;

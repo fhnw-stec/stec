@@ -29,7 +29,8 @@ describe('reducer', () => {
 
         const initialGitHubConfig = {
             gitHubUser: '',
-            gitHubRepo: ''
+            gitHubRepo: '',
+            accessToken: ''
         };
 
         const initialState = {
@@ -41,7 +42,8 @@ describe('reducer', () => {
 
             const payload = {
                 gitHubUser: 'new-user',
-                gitHubRepo: 'new-repo'
+                gitHubRepo: 'new-repo',
+                accessToken: ''
             };
 
             // start with non-empty repo state to assert reset to empty
