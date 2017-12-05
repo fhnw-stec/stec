@@ -85,8 +85,15 @@ export class GitHubService implements StecService {
     }
 
     fetchAllStepsAsZip(refs: Ref[]): Promise<JSZip> {
+
         // TODO: Create master zip of all step zips
+
         const zip = new JSZip();
+
+        // For each ref, download zip via getDownloadZipUri
+        // Unpack into folder named ref
+        // Zip-up all folders
+
         return Promise.resolve(zip);
     }
 
