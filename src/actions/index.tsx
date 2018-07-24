@@ -76,18 +76,6 @@ export const error = (message: string): ErrorAction => {
     };
 };
 
-export const loadSteps = (service: StecService) => {
-    return async (dispatch: Dispatch<StecAction>) => {
-        try {
-            dispatch(loadingProgress());
-            const steps = await loadStepsImpl(service);
-            dispatch(updateSteps(steps));
-        } catch (e) {
-            dispatch(error(e));
-        }
-    };
-};
-
 export const loadStepsImpl = async (service: StecService) => {
     const tags = await service.fetchTags();
     const annotatedTags = tags.filter(t => /* tslint:disable */ t.object['type'] === 'tag' /* tslint:enable */);
@@ -102,4 +90,16 @@ export const loadStepsImpl = async (service: StecService) => {
             tree
         };
     }));
+};
+
+export const loadSteps = (service: StecService) => {
+    return async (dispatch: Dispatch<StecAction>) => {
+        try {
+            dispatch(loadingProgress());
+            const steps = await loadStepsImpl(service);
+            dispatch(updateSteps(steps));
+        } catch (e) {
+            dispatch(error(e));
+        }
+    };
 };
